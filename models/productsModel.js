@@ -13,6 +13,18 @@ const productSchema = new mongoose.Schema(
     decscription: {
       type: String,
     },
+    stocks: {
+      type: Number,
+      default: 1,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
