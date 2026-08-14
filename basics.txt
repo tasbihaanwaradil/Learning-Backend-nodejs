@@ -41,3 +41,9 @@ node index.js
 Or use Nodemon
      ↓
 npx nodemon 
+
+
+Error
+200  Series Success Cases
+400 Series Human Error
+500 Series Server Error
