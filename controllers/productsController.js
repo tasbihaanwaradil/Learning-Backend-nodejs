@@ -97,3 +97,37 @@ export const getProductDetailById = async (req, res) => {
     });
   }
 };
+
+//update product details
+export const updateProductDetails = async (req, res) => {
+  try {
+    //get/find product by id
+    const getProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+
+    if (!getProduct) {
+      return res.status(400).json({
+        success: false,
+        message: "Product details not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Product details are updated successfully",
+      getProduct,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Product not found",
+    });
+  }
+};
