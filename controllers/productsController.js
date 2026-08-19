@@ -131,3 +131,29 @@ export const updateProductDetails = async (req, res) => {
     });
   }
 };
+
+//delete product by id
+export const deleteProductById = async (req, res) => {
+  try {
+    const getProduct = await Product.findByIdAndDelete(req.params.id);
+
+    //if product not found
+    if (!getProduct) {
+      return res.status(400).json({
+        success: false,
+        message: "Product not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      error,
+    });
+  }
+};
