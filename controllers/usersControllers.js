@@ -83,3 +83,53 @@ export const loginUser = async (req, res) => {
     });
   }
 };
+
+//get user profile
+export const getUserProfile = async (req, res) => {
+  try {
+    const findUserById = await User.findById(req.params.id);
+
+    if (!findUserById) {
+      return res.status(400).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      findUserById,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error,
+    });
+  }
+};
+
+//get all users in database
+export const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find();
+
+    if (!allUsers) {
+      return res.status(400).json({
+        success: false,
+        message: "something went wrong",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      allUsers,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      error,
+    });
+  }
+};
