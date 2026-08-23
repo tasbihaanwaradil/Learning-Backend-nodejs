@@ -133,3 +133,32 @@ export const getAllUsers = async (req, res) => {
     });
   }
 };
+
+//update user
+export const updateUserProfile = async (req, res) => {
+  try {
+    const getUserById = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if (!getUserById) {
+      return res.staus(400).json({
+        success: false,
+        message: "user not updated",
+      });
+    }
+
+    return res.staus(200).json({
+      success: true,
+      message: "user updated successfully",
+      getUserById,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      error,
+    });
+  }
+};
