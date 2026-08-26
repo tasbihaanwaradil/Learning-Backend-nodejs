@@ -63,8 +63,11 @@ export const loginUser = async (req, res) => {
       });
     }
 
+    //check password from db
+    const isPasswordMatched = await userfindByEmail.comparePassword(password);
+
     //check password
-    if (password !== userfindByEmail.password) {
+    if (!isPasswordMatched) {
       return res.status(400).json({
         success: false,
         message: "Invalid credentials",
