@@ -1,4 +1,5 @@
 import User from "../models/usersModel.js";
+import { sendTokenJWT } from "../utils/jwtTokens.js";
 
 //regiester User
 export const registerUser = async (req, res) => {
@@ -27,11 +28,14 @@ export const registerUser = async (req, res) => {
       });
     }
 
-    return res.status(200).json({
-      success: true,
-      message: "User successfully Registered",
-      user,
-    });
+    // return res.status(200).json({
+    //   success: true,
+    //   message: "User successfully Registered",
+    //   user,
+    // });
+
+    //call sendTokenJWT here
+    sendTokenJWT(user, 200, res);
   } catch (error) {
     console.log(error);
     return res.status(500).json({
@@ -74,10 +78,13 @@ export const loginUser = async (req, res) => {
       });
     }
 
-    return res.status(200).json({
-      success: true,
-      message: "Login Successfully",
-    });
+    // return res.status(200).json({
+    //   success: true,
+    //   message: "Login Successfully",
+    // });
+
+    //call sendTokenJWT
+    sendTokenJWT(userfindByEmail, 200, res);
   } catch (error) {
     console.log(error);
     return res.status(500).json({
